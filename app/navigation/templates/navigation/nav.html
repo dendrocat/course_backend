@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% load static %} {% block extrastyles %}
+<link rel="stylesheet" href="{% static 'navigation/css/urls.css' %}" />
+{% endblock extrastyles %} {% block content %}
+
+<div class="nav-urls">
+	{% for url in urls %}
+	<a href="{% url url.url %}">{{ url.text }}</a>
+	{% endfor %}
+</div>
+{% endblock content %}

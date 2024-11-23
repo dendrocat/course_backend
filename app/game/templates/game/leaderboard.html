@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<table class="styled-table">
+	<tr>
+		<th>Ранг</th>
+		<th>Пользователь</th>
+		<th>Уровень</th>
+		<th>Монеты</th>
+		<th>Высота</th>
+		<th>Ширина</th>
+	</tr>
+	{% for data in datas %}
+	<tr>
+		<td>{{ forloop.counter }}</td>
+		<td>{{ data.user.username }}</td>
+		<td>{{ data.level }}</td>
+		<td>{{ data.money }}</td>
+		<td>{{ data.height }}</td>
+		<td>{{ data.width }}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock content %} {% block breadcrumbs %}
+
+<nav class="breadcrumbs">
+	<a href='{% url "home" %}'>На главную</a>
+	<a href='{% url "game:index" %}'>Играть</a>
+</nav>
+{% endblock breadcrumbs %} {% block extrastyles %}
+<link rel="stylesheet" href="{% static 'game/css/leaderboard.css' %}" />
+{% endblock extrastyles %}

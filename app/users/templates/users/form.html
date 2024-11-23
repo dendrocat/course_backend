@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    {% comment %} {{form.as_p}} {% endcomment %}
+    {% for f in form %}
+    <p>
+        {{ f.errors }}
+        <label for="{{f.id_for_label}}">{{f.label}}</label>
+        {{ f }}        
+    </p>
+    {% endfor %}
+    {{ form.non_field_errors }}
+    <button type="submit"> {{ button_text }} </button>
+</form>
+{% endblock content %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" href="{% static "css/form.css" %}">
+{% endblock extrastyles %}
+    
+{% block breadcrumbs %}
+<nav class="breadcrumbs">
+    <a href="{% url "home" %}" class="home-link">На главную</a>
+</nav>
+{% endblock breadcrumbs %}

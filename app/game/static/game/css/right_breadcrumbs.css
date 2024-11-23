@@ -1,0 +1,45 @@
+.right {
+	display: flex;
+	align-items: center;
+
+	--color-username: #ffffff;
+	--background-username: #57abff;
+	--hover-username: #e0efff;
+
+	--color-logout: #f8d7da;
+	--background-logout: #dc3545;
+	--hover-logout: #f8d7da;
+}
+
+.right a {
+	padding: 8px 15px;
+	border-radius: 5px;
+
+	font-size: 1.1em;
+	font-weight: bold;
+	text-decoration: none;
+
+	transition: background-color 0.3s, color 0.3s;
+}
+
+#username {
+	color: var(--color-username);
+	background-color: var(--background-username);
+	margin: 0;
+	margin-right: 20px;
+}
+
+#username:hover {
+	color: var(--background-username);
+	background-color: var(--hover-username);
+}
+
+.logout-link {
+	color: var(--color-logout);
+	background-color: var(--background-logout);
+}
+
+.logout-link:hover {
+	color: var(--background-logout);
+	background-color: var(--hover-logout);
+}

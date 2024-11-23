@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% load static %} {% block extrastyles %}
+<link rel="stylesheet" href="{% static 'game/css/right_breadcrumbs.css' %}" />
+<link rel="stylesheet" href="{% static 'game/css/buttons.css' %}" />
+<link rel="stylesheet" href="{% static 'game/css/data.css' %}" />
+{% endblock extrastyles %} {% block breadcrumbs %}
+
+<nav class="breadcrumbs">
+	<a href='{% url "home" %}'>На главную</a>
+	<a href='{% url "game:leaderboard" %}'>Таблица лидеров</a>
+	<div class="right">
+		<a
+			href='{% if user.is_superuser %}
+                {% url "admin:index" %}
+            {% else %}
+                #
+            {% endif %}'
+			id="username"
+		>
+			{{ user.username }}
+		</a>
+		<a href='{% url "users:logout" %}' class="logout-link">Выйти</a>
+	</div>
+</nav>
+{% endblock breadcrumbs %} {% block content %} {% include "game/data.html" %}
+
+<div class="play-buttons">
+	<div class="top-buttons">
+		<button class="btn buy" id="width">Купить ширину</button>
+		<button class="btn buy" id="height">Купить высоту</button>
+	</div>
+	<button class="btn" id="play">Играть</button>
+</div>
+
+<div class="errors">
+	<p id="error-field">К сожалению, Вы проиграли</p>
+</div>
+{% endblock content %} {% block scripts %}
+
+<script src='{% static "js/jquery.js" %}'></script>
+<script src='{% static "game/js/get_data.js" %}'></script>
+<script src='{% static "game/js/actions.js" %}'></script>
+
+{% endblock scripts %}

@@ -1,0 +1,17 @@
+<div class="data">
+	{% for source in sources %}
+	<div class="block {{ source.class }}">
+		<h2>{{ source.name }}</h2>
+		<table class="data-table {{ source.class }}">
+			{% for field in fields %}
+			<tr>
+				<td class="data-name">{{ field.name }}</td>
+				<td class="data-value" id="{{ source.class }}-{{ field.class }}">
+					---
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	{% endfor %}
+</div>

@@ -1,0 +1,34 @@
+.nav-urls {
+	padding: 0;
+	list-style-type: none;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.nav-urls a {
+	display: inline-block;
+	padding: 10px;
+}
+
+.nav-urls a {
+	padding: 12px 25px;
+
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+
+	background-color: #4a90e2;
+	color: white;
+	border-radius: 5px;
+
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.nav-urls a:hover {
+	color: #1b69c1;
+	background-color: rgb(130, 255, 255);
+}

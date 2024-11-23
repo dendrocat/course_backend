@@ -1,0 +1,39 @@
+/* Стили для таблицы */
+.styled-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 18px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+	padding: 12px 15px;
+	border: 1px solid #ddd;
+}
+
+.styled-table th {
+	background-color: #7482d1;
+	color: white;
+	font-weight: bold;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+	background-color: #e9f5ff;
+}
+
+.styled-table tbody tr:hover {
+	background-color: #d0edff;
+}
+
+.styled-table tbody td:hover {
+	background-color: #fbfbfb;
+}
+
+/* Опциональные стили для текста */
+.content {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
+}

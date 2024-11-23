@@ -1,0 +1,32 @@
+nav.breadcrumbs {
+	padding: 5px 20px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	font-size: 1em;
+	color: #777;
+	border-bottom: 2px solid #e2e6ea;
+}
+
+nav.breadcrumbs > a {
+	padding: 12px 25px;
+
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+
+	background-color: #4a90e2;
+	color: white;
+	border-radius: 5px;
+
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+nav.breadcrumbs > a:hover {
+	color: #1b69c1;
+	background-color: rgb(130, 255, 255);
+}
