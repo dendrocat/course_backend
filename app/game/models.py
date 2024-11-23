@@ -10,7 +10,7 @@ class GameData(models.Model):
     level = models.IntegerField(verbose_name="Уровень", default=1, blank=False)
     user = models.OneToOneField(
         get_user_model(),
-        verbose_name="Пользователь",
+        verbose_name="Игрок",
         on_delete=models.CASCADE,
         blank=False,
         related_name="gamedata",

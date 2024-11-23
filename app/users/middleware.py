@@ -10,6 +10,10 @@ class AdminAccessMiddleware:
     def __call__(self, request):
         if request.path.startswith("/admin/") and request.user.is_authenticated:
             if not request.user.is_superuser:
-                return redirect(reverse_lazy("users:login") + "?" + urlencode({"next": request.path}))
-            
+                return redirect(
+                    reverse_lazy("users:login")
+                    + "?"
+                    + urlencode({"next": request.path})
+                )
+
         return self.get_response(request)

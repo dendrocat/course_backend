@@ -16,9 +16,7 @@ class Login(FormMixin, LoginView):
 
     class Meta:
         model = get_user_model()
-        fields = ["usename", "password"]
-
-
+        fields = ["login", "password"]
 
 
 class Register(FormMixin, FormView):
@@ -32,13 +30,12 @@ class Register(FormMixin, FormView):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
-    
+
     success_url = reverse_lazy(LOGIN_REDIRECT_URL)
 
 
-
 class Logout(LogoutView):
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)

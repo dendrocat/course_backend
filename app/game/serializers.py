@@ -7,4 +7,4 @@ class GameDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GameData
-        fields = ["money", "height", "width", "level", "rank"]
+        fields = ["money", "height", "width", "level"]

@@ -1,6 +1,4 @@
-from django.shortcuts import redirect
 from app.mixins import DataMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class FormMixin(DataMixin):

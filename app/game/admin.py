@@ -9,23 +9,25 @@ from .models import GameData
 # Register your models here.
 @admin.register(GameData)
 class GameDataConfig(admin.ModelAdmin):
-    queryset = GameData.objects.select_related("user")
+    def has_add_permission(self, request):
+        return False
 
-    list_display = [
+    def get_queryset(self, request):
+        return GameData.objects.all().select_related("user")
+
+    list_display = (
         "view_user_link",
         "level",
         "money",
         "height",
         "width",
         "change_link",
-    ]
+    )
     readonly_fields = ["user"]
 
     def view_user_link(self, obj):
         # Формируем правильный URL для страницы списка пользователей в админке
-        url = (
-            reverse("admin:auth_user_changelist") + "?" + urlencode({"id": obj.user.id})
-        )  # Фильтрация по ID
+        url = reverse("admin:users_user_change", args=[obj.user.id])  # Фильтрация по ID
 
         # Возвращаем HTML ссылку
         return format_html(f'<a href="{url}">{obj.user.username}</a>')
@@ -39,6 +41,11 @@ class GameDataConfig(admin.ModelAdmin):
     change_link.short_description = "Ссылки"
 
     fieldsets = [
+        ("Пользователь", {"fields": ["user"]}),
+        ("Данные", {"fields": ["level", "money", "height", "width"]}),
+    ]
+
+    add_fieldsets = [
         ("Пользователь", {"fields": ["user"]}),
         ("Данные", {"fields": ["level", "money", "height", "width"]}),
     ]
