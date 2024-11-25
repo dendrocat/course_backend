@@ -2,40 +2,45 @@ from django.test import TestCase
 from users.forms import RegisterForm
 
 
-class RegisterFormText(TestCase):
+class RegisterFormTest(TestCase):
+    def setUp(self):
+        self.username = "user"
+        self.first_name = "Пользователь"
+        self.password = "1234"
+
     def test_valid(self):
         data = {
-            "login": "user3",
-            "username": "Пользователь",
-            "password1": "1234",
-            "password2": "1234",
+            "username": self.username,
+            "first_name": self.first_name,
+            "password1": self.password,
+            "password2": self.password,
         }
         form = RegisterForm(data=data)
         self.assertTrue(form.is_valid())
 
-    def test_without_login(self):
+    def test_without_username(self):
         data = {
-            "username": "Пользователь",
-            "password1": "1234",
-            "password2": "1234",
+            "first_name": self.first_name,
+            "password1": self.password,
+            "password2": self.password,
         }
         form = RegisterForm(data=data)
         self.assertFalse(form.is_valid())
 
-    def test_without_username(self):
+    def test_without_first_name(self):
         data = {
-            "login": "user3",
-            "password1": "1234",
-            "password2": "1234",
+            "username": self.username,
+            "password1": self.password,
+            "password2": self.password,
         }
         form = RegisterForm(data=data)
         self.assertFalse(form.is_valid())
 
     def test_different_password(self):
         data = {
-            "login": "user3",
-            "username": "Пользователь",
-            "password1": "1234",
+            "username": self.username,
+            "first_name": self.first_name,
+            "password1": self.password,
             "password2": "password",
         }
         form = RegisterForm(data=data)

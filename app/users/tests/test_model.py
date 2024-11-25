@@ -8,33 +8,35 @@ User = get_user_model()
 # Create your tests here.
 class UserTest(TestCase):
     def test_create_user(self):
-        login = "user"
-        username = "Пользователь"
+        username = "user"
+        first_name = "Пользователь"
         password = "1234"
         user = User.objects.create_user(
-            login=login, username=username, password=password
+            username=username, first_name=first_name, password=password
         )
-        self.assertEqual(user.login, login)
         self.assertEqual(user.username, username)
+        self.assertEqual(user.first_name, first_name)
+        self.assertTrue(user.check_password(password))
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
 
     def test_create_superuser(self):
-        login = "root"
-        username = "Суперпользователь"
+        username = "root"
+        first_name = "Суперпользователь"
         password = "1234"
         user = User.objects.create_superuser(
-            login=login, username=username, password=password
+            username=username, first_name=first_name, password=password
         )
-        self.assertEqual(user.login, login)
         self.assertEqual(user.username, username)
+        self.assertEqual(user.first_name, first_name)
+        self.assertTrue(user.check_password(password))
         self.assertTrue(user.is_active)
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
 
-    def test_create_without_username(self):
-        login = "user"
+    def test_create_without_first_name(self):
+        username = "user"
         password = "1234"
         with self.assertRaises(ValidationError):
-            User.objects.create_user(login=login, password=password)
+            User.objects.create_user(username=username, password=password)
