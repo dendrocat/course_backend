@@ -47,7 +47,7 @@ class LeaderboardView(DataMixin, ListView):
 class GameDataAPI(APIView):
     authentication_classes = [BasicAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
-    # renderer_classes = [JSONRenderer]
+    renderer_classes = [JSONRenderer]
 
     queryset = GameData.objects
 
