@@ -20,11 +20,12 @@ class UserConfig(UserAdmin):
         return User.objects.all().select_related("gamedata")
 
     list_display = (
+        "username",
         "first_name",
         "is_superuser",
         "view_gamedata_link",
     )
-    list_display_links = ("first_name",)
+    list_display_links = ("username",)
     list_filter = ("is_superuser",)
     search_fields = ("first_name", "username")
     ordering = ("pk",)
