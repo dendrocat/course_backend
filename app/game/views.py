@@ -1,8 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 from app.mixins import DataMixin
 from .models import GameData
 from .serializers import GameDataSerializer
@@ -41,6 +45,9 @@ class LeaderboardView(DataMixin, ListView):
 
 class GameDataAPI(LoginRequiredMixin, APIView):
     queryset = GameData.objects
+
+    permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
 
     def get(self, request):
         data = self.queryset.get(user=request.user)

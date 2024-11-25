@@ -1,6 +1,7 @@
+from urllib.parse import urlencode
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from urllib.parse import urlencode
+from django.core.exceptions import PermissionDenied
 
 
 class AdminAccessMiddleware:
@@ -8,12 +9,16 @@ class AdminAccessMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if request.path.startswith("/admin/") and request.user.is_authenticated:
-            if not request.user.is_superuser:
+        print(request.path)
+        if request.path.startswith("/admin"):
+            if not request.user.is_authenticated:
                 return redirect(
                     reverse_lazy("users:login")
                     + "?"
                     + urlencode({"next": request.path})
                 )
+            elif not request.user.is_superuser:
+                print(request.user)
+                raise PermissionDenied("Недостаточно прав для просмотра")
 
         return self.get_response(request)
