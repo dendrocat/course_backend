@@ -7,4 +7,4 @@ from game.models import GameData
 @receiver(post_save, sender=get_user_model())
 def create_gamedata(sender, instance, created, **kwargs):
     if created:
-        GameData.objects.create(user=instance)
+        GameData.objects.create(user=instance).save()

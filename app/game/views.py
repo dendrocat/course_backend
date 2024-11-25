@@ -2,10 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import status
+
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 
 from app.mixins import DataMixin
 from .models import GameData
@@ -43,7 +44,11 @@ class LeaderboardView(DataMixin, ListView):
     template_name = "game/leaderboard.html"
 
 
-class GameDataAPI(LoginRequiredMixin, APIView):
+class GameDataAPI(APIView):
+    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+    # renderer_classes = [JSONRenderer]
+
     queryset = GameData.objects
 
     permission_classes = [IsAuthenticated]

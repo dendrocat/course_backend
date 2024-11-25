@@ -20,13 +20,13 @@ class UserConfig(UserAdmin):
         return User.objects.all().select_related("gamedata")
 
     list_display = (
-        "username",
+        "first_name",
         "is_superuser",
         "view_gamedata_link",
     )
-    list_display_links = ("username",)
+    list_display_links = ("first_name",)
     list_filter = ("is_superuser",)
-    search_fields = ("login", "username")
+    search_fields = ("first_name", "username")
     ordering = ("pk",)
 
     def view_gamedata_link(self, obj):
@@ -36,13 +36,13 @@ class UserConfig(UserAdmin):
     view_gamedata_link.short_description = "Игровые данные"
 
     fieldsets = [
-        ("Данные для входа", {"fields": ["login", "password"]}),
-        (_("Personal info"), {"fields": ["username"]}),
+        ("Данные для входа", {"fields": ["username", "password"]}),
+        (_("Personal info"), {"fields": ["first_name"]}),
         (_("Permissions"), {"fields": ["is_active", "is_staff", "is_superuser"]}),
     ]
 
     add_fieldsets = [
-        ("Данные для входа", {"fields": ["login", "password1", "password2"]}),
-        (_("Personal info"), {"fields": ["username"]}),
+        ("Данные для входа", {"fields": ["username", "password1", "password2"]}),
+        (_("Personal info"), {"fields": ["first_name"]}),
         (_("Permissions"), {"fields": ["is_active", "is_staff", "is_superuser"]}),
     ]
