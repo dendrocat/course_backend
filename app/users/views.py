@@ -16,7 +16,6 @@ class Login(FormMixin, LoginView):
 
     class Meta:
         model = get_user_model()
-        fields = ["login", "password"]
 
 
 class Register(FormMixin, FormView):
