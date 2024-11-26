@@ -9,7 +9,6 @@ class AdminAccessMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        print(request.path)
         if request.path.startswith("/admin"):
             if not request.user.is_authenticated:
                 return redirect(
@@ -18,7 +17,6 @@ class AdminAccessMiddleware:
                     + urlencode({"next": request.path})
                 )
             elif not request.user.is_superuser:
-                print(request.user)
                 raise PermissionDenied("Недостаточно прав для просмотра")
 
         return self.get_response(request)
