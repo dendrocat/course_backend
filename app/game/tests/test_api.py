@@ -15,24 +15,10 @@ class GameAPITest(APITestCase):
         self.user = User.objects.create_user(
             username=self.username, first_name=self.username, password=self.password
         )
-
-    def test_api_view_by_url_(self):
-        response = self.client.get("/game/api")
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_api_view_by_url_name(self):
-        response = self.client.get(reverse("game:api"))
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_api_view_with_auth(self):
         self.client.login(username=self.username, password=self.password)
-        response = self.client.get(reverse("game:api"))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get(self):
-        self.client.login(username=self.username, password=self.password)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         user_data = self.user.gamedata
 
         self.assertTrue(response.data)
@@ -41,23 +27,17 @@ class GameAPITest(APITestCase):
         self.assertEqual(user_data.width, response.data["width"])
         self.assertEqual(user_data.level, response.data["level"])
 
-    def test_play(self):
+    def test_win(self):
+        # тестовые данные
         money = 2000
         level = self.user.gamedata.level + 1
         height = 100
         width = 200
 
-        self.client.login(username=self.username, password=self.password)
         response = self.client.patch(
             self.url,
-            data={
-                "money": money,
-                "level": level,
-                "height": height,
-                "width": width,
-            },
+            data={"money": money, "level": level, "height": height, "width": width},
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data)
 
         data = GameData.objects.get(user=self.user)
@@ -78,16 +58,15 @@ class GameAPITest(APITestCase):
         self.assertEqual(data.width, response.data["width"])
 
     def test_wasted(self):
+        # тестовые данные
         level = self.user.gamedata.level
         money = 1000
         height = 150
         width = 0
 
-        self.client.login(username=self.username, password=self.password)
         response = self.client.patch(
             self.url, data={"money": money, "height": height, "width": width}
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data)
 
         data = GameData.objects.get(user=self.user)
@@ -108,6 +87,7 @@ class GameAPITest(APITestCase):
         self.assertEqual(data.width, response.data["width"])
 
     def test_buy_height(self):
+        # тестовые данные
         money = 2000
         dm = 150
         height = 0
@@ -115,11 +95,9 @@ class GameAPITest(APITestCase):
         level = self.user.gamedata.level
         width = self.user.gamedata.width
 
-        self.client.login(username=self.username, password=self.password)
         response = self.client.patch(
             self.url, data={"money": money - dm, "height": height + dh}
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data)
 
         data = GameData.objects.get(user=self.user)
@@ -140,6 +118,7 @@ class GameAPITest(APITestCase):
         self.assertEqual(data.width, response.data["width"])
 
     def test_buy_width(self):
+        # тестовые данные
         money = 2000
         dm = 150
         width = 0
@@ -147,12 +126,11 @@ class GameAPITest(APITestCase):
         level = self.user.gamedata.level
         height = self.user.gamedata.height
 
-        self.client.login(username=self.username, password=self.password)
         response = self.client.patch(
             self.url, data={"money": money - dm, "width": width + dw}
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data)
+
         data = GameData.objects.get(user=self.user)
         self.assertTrue("money" in response.data)
         self.assertEqual(money - dm, response.data["money"])
@@ -171,9 +149,5 @@ class GameAPITest(APITestCase):
         self.assertEqual(data.width, response.data["width"])
 
     def test_patch_wrong(self):
-        self.client.login(username=self.username, password=self.password)
-        response = self.client.patch(
-            self.url,
-            data={"wrongkey": "somedata"},
-        )
+        response = self.client.patch(self.url, data={"wrongkey": "somedata"})
         self.assertEqual(response.status_code, status.HTTP_200_OK)

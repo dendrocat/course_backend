@@ -51,8 +51,7 @@ class GameDataAPI(APIView):
 
     queryset = GameData.objects
 
-    permission_classes = [IsAuthenticated]
-    renderer_classes = [JSONRenderer]
+    http_method_names = ["get", "patch"]
 
     def get(self, request):
         data = self.queryset.get(user=request.user)

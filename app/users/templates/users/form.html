@@ -5,7 +5,6 @@
 <form action="" method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
-    {% comment %} {{form.as_p}} {% endcomment %}
     {% for f in form %}
     <p>
         {{ f.errors }}

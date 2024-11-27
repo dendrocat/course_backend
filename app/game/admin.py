@@ -1,4 +1,3 @@
-from urllib.parse import urlencode
 from django.urls import reverse
 
 from django.contrib import admin
@@ -10,6 +9,9 @@ from .models import GameData
 @admin.register(GameData)
 class GameDataConfig(admin.ModelAdmin):
     def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=...):
         return False
 
     def get_queryset(self, request):
@@ -41,11 +43,6 @@ class GameDataConfig(admin.ModelAdmin):
     change_link.short_description = "Ссылки"
 
     fieldsets = [
-        ("Пользователь", {"fields": ["user"]}),
-        ("Данные", {"fields": ["level", "money", "height", "width"]}),
-    ]
-
-    add_fieldsets = [
         ("Пользователь", {"fields": ["user"]}),
         ("Данные", {"fields": ["level", "money", "height", "width"]}),
     ]
