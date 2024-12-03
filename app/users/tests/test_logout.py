@@ -30,14 +30,28 @@ class LogoutViewTests(TestCase):
     def test_logout_from_unauthorized(self):
         user = get_user(self.client)
         self.assertIsInstance(user, AnonymousUser)
+
         response = self.client.get(reverse("users:logout"))
+
+        user = get_user(self.client)
+        self.assertIsInstance(user, AnonymousUser)
+
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("home"))
 
     def test_logout_from_authorized(self):
+        user = get_user(self.client)
+        self.assertIsInstance(user, AnonymousUser)
+
         self.client.login(username=self.username, password=self.password)
+
         user = get_user(self.client)
         self.assertIsInstance(user, User)
+
         response = self.client.get(reverse("users:logout"))
+
+        user = get_user(self.client)
+        self.assertIsInstance(user, AnonymousUser)
+
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("home"))
