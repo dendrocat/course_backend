@@ -35,6 +35,7 @@ class LoginViewTest(TestCase):
         )
         # После успешного входа пользователя должен редиректить на главную страницу
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("home"))
 
     def test_invalid_login(self):
         response = self.client.post(

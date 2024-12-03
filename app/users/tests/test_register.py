@@ -30,6 +30,7 @@ class RegisterViewTest(TestCase):
                 "password2": self.password,
             },
         )
+        self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("home"))
 
         user = User.objects.get(username=self.username)

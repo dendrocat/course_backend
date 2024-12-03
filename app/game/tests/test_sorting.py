@@ -35,7 +35,9 @@ class SortingTest(TestCase):
     def test_top(self):
         top = GameData.objects.all()
 
-        for i in range(3):
+        self.assertEqual(top.count(), 3)
+
+        for i in range(top.count()):
             self.assertEqual(top[i].user.username, f"user{i+1}")
 
     def test_update_top(self):
@@ -45,6 +47,8 @@ class SortingTest(TestCase):
         self.update_gamedata(user4.gamedata, 49, 5, 20, 3)
 
         top = GameData.objects.all()
+
+        self.assertEqual(top.count(), 4)
 
         self.assertEqual(top[0].user.username, "user1")
         self.assertEqual(top[1].user.username, "user4")

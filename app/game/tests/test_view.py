@@ -45,7 +45,7 @@ class GameViewTest(TestCase):
         response = self.client.get("/game/api")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_api_view_by_url_(self):
+    def test_api_view_by_url_with_auth(self):
         self.client.login(username=self.username, password=self.password)
         response = self.client.get("/game/api")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
